@@ -5,7 +5,7 @@ import {
   AnimatedBackground, 
   ViewToggle
 } from '../visual/VisualComponents';
-import { BlogPost } from '../../lib/blogContentLoader.js';
+import { BlogPost } from '@/lib/blogContentLoader';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { BlogMetrics } from './BlogMetrics';
 import { BlogFilters } from './BlogFilters';

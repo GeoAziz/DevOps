@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BlogPost, loadBlogPosts, getFeaturedPosts } from '../lib/blogContentLoader.js';
+import { BlogPost, loadBlogPosts, getFeaturedPosts } from '@/lib/blogContentLoader';
 
 /**
  * Hook to load all blog posts
