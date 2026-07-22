@@ -5,7 +5,7 @@ import {
   AnimatedBackground, 
   ViewToggle
 } from '../visual/VisualComponents';
-import { BlogPost } from '../../lib/blogContentLoader';
+import { BlogPost } from '../../lib/blogContentLoader.js';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 import { BlogMetrics } from './BlogMetrics';
 import { BlogFilters } from './BlogFilters';
@@ -40,7 +40,7 @@ const EnhancedBlog: React.FC = () => {
         (post) =>
           post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+          post.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
 
