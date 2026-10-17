@@ -57,7 +57,7 @@ const EnhancedBlog: React.FC = () => {
     });
 
     return filtered;
-  }, [selectedCategory, searchTerm, sortBy]);
+  }, [BLOG_POSTS, selectedCategory, searchTerm, sortBy]);
 
   const featuredPosts = BLOG_POSTS.filter((post) => post.featured);
 

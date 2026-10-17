@@ -101,11 +101,12 @@ export const Skills = () => {
         case 'levels':
           output = commands.levels;
           break;
-        case 'clear':
+        case 'clear': {
           commands.clear();
           setIsProcessing(false);
           return;
-        case 'ls':
+        }
+        case 'ls': {
           const category = args[1];
           if (category && categories.find(c => c.id === category)) {
             const cat = categories.find(c => c.id === category)!;
@@ -120,7 +121,8 @@ export const Skills = () => {
             ];
           }
           break;
-        case 'cat':
+        }
+        case 'cat': {
           const skillName = args.slice(1).join(' ');
           const skill = SKILLS_BY_CATEGORY.cloud.find(s => s.name.toLowerCase() === skillName) ||
                        SKILLS_BY_CATEGORY.containers.find(s => s.name.toLowerCase() === skillName) ||
@@ -141,6 +143,7 @@ export const Skills = () => {
             output = [`Skill "${skillName}" not found`];
           }
           break;
+        }
         default:
           output = commands.default(cmd);
       }
