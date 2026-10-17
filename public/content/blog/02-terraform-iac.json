@@ -1,0 +1,17 @@
+{
+  "id": 2,
+  "slug": "terraform-iac-aws",
+  "title": "Infrastructure as Code: Terraform Best Practices for AWS",
+  "category": "Cloud Infrastructure",
+  "difficulty": "Advanced",
+  "readTime": "12 min read",
+  "date": "2025-01-10",
+  "featured": false,
+  "views": "1.8k",
+  "likes": "98",
+  "comments": "15",
+  "excerpt": "Master Terraform infrastructure management with proven patterns, state management, and security practices for AWS deployments.",
+  "tags": ["Terraform", "AWS", "IaC", "Security", "Best Practices"],
+  "heroImage": "https://images.unsplash.com/photo-1516321318423-f06f70db4220?w=1200&h=630&fit=crop",
+  "content": "# Infrastructure as Code: Terraform Best Practices for AWS\n\nTerraform has revolutionized how we manage infrastructure. This guide covers essential best practices for managing AWS resources with Terraform.\n\n## Project Structure\n\nOrganize your Terraform code for maintainability and reusability:\n\n```\nterraform/\n├── modules/\n│   ├── vpc/\n│   ├── ecs/\n│   └── rds/\n├── environments/\n│   ├── dev/\n│   ├── staging/\n│   └── prod/\n└── shared/\n    └── variables.tf\n```\n\n## State Management\n\nUse remote state storage to maintain state across team members:\n\n```hcl\nterraform {\n  backend \"s3\" {\n    bucket = \"my-terraform-state\"\n    key    = \"infrastructure/terraform.tfstate\"\n    region = \"us-west-2\"\n    \n    dynamodb_table = \"terraform-state-lock\"\n  }\n}\n```\n\n## Security Best Practices\n\n1. Use separate AWS accounts for different environments\n2. Implement least privilege IAM policies\n3. Enable encryption at rest and in transit\n4. Use Terraform variables for sensitive data\n5. Implement state encryption\n\n## Module Reusability\n\nCreate reusable modules that can be shared across projects:\n\n```hcl\nmodule \"vpc\" {\n  source = \"./modules/vpc\"\n  \n  environment = var.environment\n  region      = var.region\n  \n  cidr_block = \"10.0.0.0/16\"\n}\n```\n\n## Conclusion\n\nFollowing these best practices will help you maintain scalable, secure, and maintainable infrastructure with Terraform."
+}

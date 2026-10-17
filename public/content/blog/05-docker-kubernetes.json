@@ -1,0 +1,17 @@
+{
+  "id": 5,
+  "slug": "docker-kubernetes-containerization",
+  "title": "Docker & Kubernetes: Containerization Best Practices",
+  "category": "DevOps",
+  "difficulty": "Beginner",
+  "readTime": "12 min read",
+  "date": "2024-11-10",
+  "featured": false,
+  "views": "3.2k",
+  "likes": "245",
+  "comments": "42",
+  "excerpt": "Complete guide to containerization with Docker and orchestration with Kubernetes. Learn multi-stage builds, security best practices, and deployment patterns.",
+  "tags": ["Docker", "Kubernetes", "Containers", "DevOps", "Orchestration"],
+  "heroImage": "https://images.unsplash.com/photo-1460925895917-adf4e565db57?w=1200&h=630&fit=crop",
+  "content": "# Docker & Kubernetes: Containerization Best Practices\n\nContainerization has become fundamental to modern DevOps practices. This comprehensive guide covers Docker and Kubernetes best practices.\n\n## Multi-Stage Docker Builds\n\nReduce image size and improve security with multi-stage builds:\n\n```dockerfile\n# Build stage\nFROM node:18-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci --only=production\n\n# Runtime stage\nFROM node:18-alpine\nWORKDIR /app\nCOPY --from=builder /app/node_modules ./node_modules\nCOPY . .\nEXPOSE 3000\nCMD [\"node\", \"server.js\"]\n```\n\n## Kubernetes Deployment Best Practices\n\n### Resource Requests and Limits\n\n```yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: my-app\nspec:\n  replicas: 3\n  template:\n    spec:\n      containers:\n      - name: app\n        image: my-app:latest\n        resources:\n          requests:\n            memory: \"256Mi\"\n            cpu: \"250m\"\n          limits:\n            memory: \"512Mi\"\n            cpu: \"500m\"\n```\n\n### Health Checks\n\nImplement proper liveness and readiness probes:\n\n```yaml\nlivenessProbe:\n  httpGet:\n    path: /health\n    port: 3000\n  initialDelaySeconds: 30\n  periodSeconds: 10\n\nreadinessProbe:\n  httpGet:\n    path: /ready\n    port: 3000\n  initialDelaySeconds: 5\n  periodSeconds: 5\n```\n\n## Security Best Practices\n\n1. Run containers as non-root users\n2. Use read-only root filesystems\n3. Implement network policies\n4. Scan images for vulnerabilities\n5. Use private container registries\n\n## Networking and Service Discovery\n\nKubernetes Services provide automatic service discovery and load balancing:\n\n```yaml\napiVersion: v1\nkind: Service\nmetadata:\n  name: my-app-service\nspec:\n  type: ClusterIP\n  selector:\n    app: my-app\n  ports:\n  - protocol: TCP\n    port: 80\n    targetPort: 3000\n```\n\n## Conclusion\n\nMastering Docker and Kubernetes is essential for modern cloud-native development. Follow these practices to build resilient, scalable applications."
+}

@@ -1,0 +1,17 @@
+{
+  "id": 6,
+  "slug": "github-actions-cicd-workflows",
+  "title": "CI/CD Pipelines: GitHub Actions Advanced Workflows",
+  "category": "DevOps",
+  "difficulty": "Advanced",
+  "readTime": "9 min read",
+  "date": "2024-10-05",
+  "featured": false,
+  "views": "2.1k",
+  "likes": "178",
+  "comments": "31",
+  "excerpt": "Deep dive into GitHub Actions with reusable workflows, secrets management, and production deployment patterns for enterprise-grade CI/CD.",
+  "tags": ["GitHub Actions", "CI/CD", "Automation", "DevOps", "GitHub"],
+  "heroImage": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop",
+  "content": "# CI/CD Pipelines: GitHub Actions Advanced Workflows\n\nGitHub Actions provides powerful automation capabilities for CI/CD pipelines. This guide covers advanced workflows for production deployments.\n\n## Reusable Workflows\n\nCreate reusable workflows to avoid duplication across repositories:\n\n```yaml\n# .github/workflows/test-and-build.yml\nname: Test and Build\non:\n  workflow_call:\n    secrets:\n      registry_username:\n        required: true\n      registry_password:\n        required: true\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '18'\n      - run: npm ci\n      - run: npm test\n      - run: npm run build\n```\n\n## Matrix Strategies\n\nTest against multiple configurations efficiently:\n\n```yaml\nstrategy:\n  matrix:\n    node-version: [16, 18, 20]\n    os: [ubuntu-latest, windows-latest, macos-latest]\n\njobs:\n  test:\n    runs-on: ${{ matrix.os }}\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: ${{ matrix.node-version }}\n      - run: npm ci\n      - run: npm test\n```\n\n## Secrets Management\n\nSecurely manage sensitive data:\n\n```yaml\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Deploy to production\n        run: |\n          npm run build\n          npm run deploy\n        env:\n          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}\n          API_TOKEN: ${{ secrets.API_TOKEN }}\n```\n\n## Production Deployment Pattern\n\n```yaml\nname: Production Deployment\n\non:\n  push:\n    branches: [main]\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '18'\n      - run: npm ci\n      - run: npm test\n      - run: npm run build\n      - uses: actions/upload-artifact@v3\n        with:\n          name: build\n          path: dist/\n\n  deploy:\n    needs: build\n    runs-on: ubuntu-latest\n    environment:\n      name: production\n      url: https://myapp.com\n    steps:\n      - uses: actions/download-artifact@v3\n        with:\n          name: build\n      - name: Deploy\n        run: npm run deploy\n        env:\n          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}\n```\n\n## Best Practices\n\n1. Use environments for different deployment stages\n2. Require reviews for production deployments\n3. Use concurrency to prevent parallel runs\n4. Cache dependencies to improve speed\n5. Monitor workflow execution times\n\n## Conclusion\n\nGitHub Actions provides enterprise-grade CI/CD capabilities. Master these patterns to build robust, automated deployment pipelines."
+}

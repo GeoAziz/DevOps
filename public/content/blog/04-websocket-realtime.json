@@ -1,0 +1,17 @@
+{
+  "id": 4,
+  "slug": "websocket-realtime-nodejs",
+  "title": "Real-time Communication: WebSocket Architecture with Node.js",
+  "category": "Full-Stack",
+  "difficulty": "Intermediate",
+  "readTime": "10 min read",
+  "date": "2024-12-28",
+  "featured": true,
+  "views": "1.9k",
+  "likes": "127",
+  "comments": "19",
+  "excerpt": "Build scalable real-time applications using WebSocket architecture with Node.js, Redis, and message queues.",
+  "tags": ["WebSocket", "Node.js", "Redis", "Real-time", "Architecture"],
+  "heroImage": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=630&fit=crop",
+  "content": "# Real-time Communication: WebSocket Architecture with Node.js\n\nReal-time communication has become essential for modern applications. This guide covers building scalable WebSocket applications.\n\n## Architecture Overview\n\n```\nClient -> Load Balancer -> WebSocket Server -> Redis Pub/Sub -> Database\n                                    -> Message Queue -> Background Workers\n```\n\n## WebSocket Server Setup\n\n```javascript\nconst WebSocket = require('ws');\nconst redis = require('redis');\n\nclass WebSocketServer {\n  constructor(port) {\n    this.wss = new WebSocket.Server({ port });\n    this.redisClient = redis.createClient();\n    this.setupWebSocketHandlers();\n  }\n  \n  setupWebSocketHandlers() {\n    this.wss.on('connection', (ws) => {\n      console.log('New client connected');\n      \n      ws.on('message', (message) => {\n        this.handleMessage(ws, message);\n      });\n      \n      ws.on('close', () => {\n        console.log('Client disconnected');\n      });\n    });\n  }\n}\n```\n\n## Scaling Strategies\n\n1. **Horizontal Scaling**: Use Redis for session sharing\n2. **Load Balancing**: Implement sticky sessions\n3. **Message Queues**: Handle high message volumes\n4. **Database Optimization**: Use efficient data structures\n\n## Best Practices\n\n- Implement proper error handling\n- Use connection pooling\n- Monitor memory usage\n- Implement rate limiting\n\nThis architecture provides a solid foundation for building real-time applications that can scale to thousands of concurrent users."
+}

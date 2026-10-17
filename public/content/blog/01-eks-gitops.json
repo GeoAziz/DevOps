@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "slug": "eks-gitops-production",
+  "title": "From Zero to Hero: Building a Production-Grade EKS Cluster with GitOps",
+  "category": "DevOps",
+  "difficulty": "Intermediate",
+  "readTime": "8 min read",
+  "date": "2025-01-15",
+  "featured": true,
+  "views": "2.5k",
+  "likes": "156",
+  "comments": "23",
+  "excerpt": "Learn how to set up a complete EKS cluster with ArgoCD for GitOps deployment, including best practices for production environments.",
+  "tags": ["AWS", "EKS", "GitOps", "ArgoCD", "Kubernetes"],
+  "heroImage": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop",
+  "content": "# From Zero to Hero: Building a Production-Grade EKS Cluster with GitOps\n\nIn today's cloud-native world, managing Kubernetes infrastructure efficiently is crucial. This comprehensive guide will walk you through setting up a production-grade Amazon EKS cluster with GitOps deployment using ArgoCD.\n\n## Why GitOps?\n\nGitOps is an operational framework that takes DevOps best practices used for application development (version control, collaboration, compliance) and applies them to infrastructure automation.\n\n## Prerequisites\n\n- AWS CLI configured\n- kubectl installed\n- Terraform or eksctl\n- Docker knowledge\n- Basic Kubernetes concepts\n\n## Architecture Overview\n\nOur setup includes:\n- EKS cluster with managed node groups\n- ArgoCD for GitOps\n- External DNS\n- AWS Load Balancer Controller\n- cert-manager for SSL certificates\n- Monitoring with Prometheus and Grafana\n\n## Step 1: Cluster Creation\n\n```bash\n# Using eksctl\neksctl create cluster \\\n  --name production-eks \\\n  --region us-west-2 \\\n  --nodegroup-name linux-nodes \\\n  --node-type t3.medium \\\n  --nodes 3 \\\n  --nodes-min 2 \\\n  --nodes-max 10 \\\n  --managed\n```\n\n## Step 2: Install ArgoCD\n\n```bash\nkubectl create namespace argocd\nkubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml\n```\n\n## Step 3: Configure GitOps\n\nCreate your application manifests in a Git repository and configure ArgoCD to sync them automatically.\n\nThis approach ensures that your infrastructure is always in sync with your Git repository, providing audit trails and rollback capabilities.\n\n## Conclusion\n\nBy following this guide, you'll have a production-ready EKS cluster with GitOps capabilities that can scale with your needs and maintain compliance standards."
+}
