@@ -44,6 +44,10 @@ Object.defineProperty(globalThis, 'ResizeObserver', {
   value: MockResizeObserver,
 });
 
+if (typeof window !== 'undefined') {
+  window.scrollTo = () => {};
+}
+
 // Cleanup after each test case
 afterEach(() => {
   cleanup();

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   AnimatedBackground, 
@@ -17,6 +18,7 @@ import { CaseStudyCTA } from './CaseStudyCTA';
 const categories = ['All', 'DevOps', 'Cloud Infrastructure', 'Full-Stack'];
 
 const EnhancedCaseStudies: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedStudy, setSelectedStudy] = useState<number | null>(CASE_STUDIES[0]?.id || null);
   const [activeTab, setActiveTab] = useState<'overview' | 'solution' | 'results'>('overview');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -163,7 +165,10 @@ const EnhancedCaseStudies: React.FC = () => {
         </AnimatePresence>
 
         {/* Call to Action */}
-        <CaseStudyCTA />
+        <CaseStudyCTA
+          onStart={() => navigate('/contact')}
+          onDownload={() => window.print()}
+        />
       </div>
     </AnimatedBackground>
   );

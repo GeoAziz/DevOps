@@ -83,7 +83,7 @@ export const PROJECTS = [
     description: 'Built a Netflix clone with React, Tailwind CSS, and Firebase. Integrated React Router for seamless navigation and Firebase for authentication.',
     technologies: ['React', 'Tailwind CSS', 'Firebase'],
     category: 'fullstack',
-    githubLink: 'https://github.com/GeoAziz/Netflix-Clone-Devops.git',
+    githubLink: 'https://github.com/GeoAziz/Netflix-Clone-Devops',
     websiteLink: 'https://netflix-clone-wi5g.onrender.com/',
   },
   {

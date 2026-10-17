@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, X, ChevronRight, BookOpen, FileText } from 'lucide-react';
@@ -17,7 +17,20 @@ export const Navbar = () => {
     { path: '/contact', label: 'Contact' },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   return (
     <>
@@ -25,7 +38,7 @@ export const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
+            <Link to="/" aria-label="DevOps Portfolio Home" className="flex items-center space-x-2 group">
               <div className="text-primary-500 font-mono font-bold text-xl tracking-wide">
                 <span className="text-accent-500">&gt;</span>
                 <span className="group-hover:text-primary-500 transition-colors duration-200">
@@ -81,7 +94,9 @@ export const Navbar = () => {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-2 rounded-md text-neutral-200 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-                aria-label="Toggle menu"
+                aria-label="Toggle navigation menu"
+                aria-expanded={isOpen}
+                aria-controls="mobile-nav"
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -92,6 +107,7 @@ export const Navbar = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <motion.div
+            id="mobile-nav"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}

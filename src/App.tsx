@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
@@ -10,9 +11,8 @@ import { Projects } from './pages/Projects';
 import Blog from './pages/Blog';
 import CaseStudies from './pages/CaseStudies';
 import { Contact } from './pages/Contact';
+import { NotFound } from './pages/NotFound';
 import './App.css';
-
-
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -30,9 +30,16 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
+        <ScrollToTop />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-500 focus:text-bg-surface focus:font-mono focus:rounded-md focus:shadow-glow"
+        >
+          Skip to main content
+        </a>
         <div className="min-h-screen bg-bg-page text-neutral-200 font-sans">
           <Navbar />
-          <main className="pt-16">
+          <main id="main-content" className="pt-16">
             <Suspense fallback={<LoadingFallback />}>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -42,6 +49,7 @@ function App() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/case-studies" element={<CaseStudies />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </main>
